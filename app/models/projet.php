@@ -110,6 +110,26 @@ class projet extends \Phalcon\Mvc\Model {
         return $this->nom;
     }
 
+    public function getAvancement(){
+        $sum = 0;
+        $avancement = 0;
+        foreach( $this->getUseCasesProjet() as $usecase){
+            $sum += $usecase->getPoids();
+        }
+        foreach( $this->getUseCasesProjet() as $usecase){
+            $poidpercent = $usecase->getPoids()*100/$sum;
+            $avancement += round($poidpercent*$usecase->getAvancement()/100);
+        }
+        return $avancement;
+    }
+
+    public function getDayLeft(){
+        $datetime1 = new DateTime($this->getDateFinPrevue());
+        $datetime2 = new DateTime(date("Y-m-d"));
+        $interval = date_diff($datetime1, $datetime2);
+        return $interval->format('%R%a days');
+    }
+
     public function columnMap()
     {
         //Les clés correspondent aux noms dans la table
