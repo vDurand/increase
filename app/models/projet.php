@@ -127,7 +127,22 @@ class projet extends \Phalcon\Mvc\Model {
         $datetime1 = new DateTime($this->getDateFinPrevue());
         $datetime2 = new DateTime(date("Y-m-d"));
         $interval = date_diff($datetime1, $datetime2);
-        return $interval->format('%R%a days');
+        return $interval->format('%a');
+    }
+
+    public function getLateState(){
+        $datetime1 = new DateTime($this->getDateLancement());
+        $datetime2 = new DateTime(date("Y-m-d"));
+        $datetime3 = new DateTime($this->getDateFinPrevue());
+        $daysSpent = date_diff($datetime2, $datetime1);
+        $daysPlanned = date_diff($datetime3, $datetime1);
+        $tpsPerCent = $daysSpent->format('%a')*100/$daysPlanned->format('%a');
+        if($this->getDayLeft() < 0)
+            return "danger";
+        else if($this->getDayLeft()>=$tpsPerCent)
+            return "success";
+        else
+            return "warning";
     }
 
     public function columnMap()
