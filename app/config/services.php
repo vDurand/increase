@@ -70,6 +70,12 @@ $di->set('modelsMetadata', function () {
     return new MetaDataAdapter();
 });
 
+$di->set("jquery",function(){
+    $jquery= new Ajax\JsUtils(array("driver"=>"Jquery"));
+    $jquery->bootstrap(new Ajax\Bootstrap());//Optional for Phalcon Twitter Bootstrap
+    return $jquery;
+});
+
 /**
  * Start the session the first time some component request the session service
  */
