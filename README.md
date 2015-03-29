@@ -24,4 +24,5 @@ A Phalcon web application to manage the progress of projects, and improve commun
 
 #Team
 Valentin DURAND & Jérémie LE BAS
+
 *IUT Caen - DUT Informatique - 2015*
